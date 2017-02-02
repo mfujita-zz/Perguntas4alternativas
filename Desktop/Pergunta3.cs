@@ -20,7 +20,7 @@ namespace Desktop
         private void Pergunta3_Load(object sender, EventArgs e)
         {
             //Página 37
-            lblPergunta3.Text = "É imporrtante estimular as pessoas a compreender os vínculos entre esforço e os resultados e mostrar-lhes claramente de que maneira se beneficiarão desses resultados. \nAs alternativas abaixo apresentam as motivações para trabalhar em níveis ótimo exceto:";
+            lblPergunta3.Text = "É importante estimular as pessoas a compreender os vínculos entre esforço e os resultados e mostrar-lhes claramente de que maneira se beneficiarão desses resultados. \nAs alternativas abaixo apresentam as motivações para trabalhar em níveis ótimo exceto:";
             rb1.Text = "Pensarem que o aumento de seus esforços resultará em melhor desempenho.";
             rb2.Text = "Pensarem que serão recompensadas pelo esforço adicional que fizerem para alcançar aquele desempenho.";
             rb3.Text = "São os benefícios que motivam o trabalho apaziguando o fardo."; // True

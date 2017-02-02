@@ -20,7 +20,7 @@ namespace Desktop
         private void Pergunta5_Load(object sender, EventArgs e)
         {
             //Página 69
-            lblPergunta5.Text = "Há várias maneiras de recomensar e é essencial compreender quais são os motivadores de alguém antes de decidir qual recompensa é apropriada para aquela pessoa. \nAs alternativas abaixo apresentam uma recompensa e sua aplicação. Qual não está correta?";
+            lblPergunta5.Text = "Há várias maneiras de recompensar e é essencial compreender quais são os motivadores de alguém antes de decidir qual recompensa é apropriada para aquela pessoa. \nAs alternativas abaixo apresentam uma recompensa e sua aplicação. Qual não está correta?";
             rb1.Text = "Empréstimos. Empréstimos para aquisição de pacotes turísticos ou outros.";
             rb2.Text = "Ticket Alimentação. Compras de produtos em supermercado incluindo bebidas e fumos."; //True
             rb3.Text = "Treinamento/Desenvolvimento. Treinamento pessoal ou profissional.";

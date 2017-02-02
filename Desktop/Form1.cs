@@ -16,7 +16,7 @@ namespace Desktop
     {
         public frm_inicial()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
