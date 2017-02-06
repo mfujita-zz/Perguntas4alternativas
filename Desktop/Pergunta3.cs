@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -29,16 +30,22 @@ namespace Desktop
 
         private void btnResposta3_Click(object sender, EventArgs e)
         {
-            bool valor;
-            if (rb3.Checked)
-                valor = true;
-            else
-                valor = false;
-
-            Utilidades.ArmazenaResposta(2, valor);
-
-            Pergunta4 p4 = new Pergunta4();
-            p4.Show();
+            using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
+            {
+                using (SqlCommand cmd = new SqlCommand("insert into tb_Perguntas (pergunta, resposta_correta, ID_JOGADOR) values (@perg, @resp, @ID_JOGADOR)", conexao))
+                {
+                    if (rb3.Checked)
+                    {
+                        cmd.Parameters.AddWithValue("perg", lblPergunta3.Text);
+                        cmd.Parameters.AddWithValue("resp", rb3.Text);
+                        cmd.Parameters.AddWithValue("ID_JOGADOR", 2);
+                        conexao.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                    Pergunta4 p4 = new Pergunta4();
+                    p4.ShowDialog();
+                }
+            }
         }
     }
 }

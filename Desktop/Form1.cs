@@ -27,27 +27,25 @@ namespace Desktop
             }
             else
             {
-                //using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\ALUNO01; Database=perguntas_respostas; Trusted_Connection=Yes"))
-                //{
-                //    using (SqlCommand comando = new SqlCommand("insert into tb_jogador(nome) values (@NOME)", conexao))
-                //    {
-                //        comando.Parameters.AddWithValue("NOME", txtNome.Text);
-                //        conexao.Open();
-                //        if (comando.ExecuteNonQuery() ==1)
-                //        {
-                //            MessageBox.Show("Olá, " + txtNome.Text + ". Vamos começar.", "Boas vindas!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //            Pergunta1 fperg1 = new Pergunta1();
-                //            fperg1.Show();
-                //        }
-                //        else
-                //        {
-                //            MessageBox.Show("Erro no procedimento da conexão.");
-                //        }
-                //    }
-                //}
-                MessageBox.Show("Vamos começar, " + txtNome.Text + "!");
-                Pergunta1 p1 = new Pergunta1();
-                p1.ShowDialog();
+                using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_Connection=Yes"))
+                {
+                    using (SqlCommand comando = new SqlCommand("insert into tb_jogador(nome) OUTPUT INSERTED.id_jogador values (@NOME)", conexao))
+                    {                        
+                        comando.Parameters.AddWithValue("NOME", txtNome.Text);
+                        conexao.Open();
+                        if (comando.ExecuteNonQuery() == 1)
+                        {
+                            int idJogador = (int)comando.ExecuteScalar();                            
+                            MessageBox.Show("Olá, " + txtNome.Text + ". Vamos começar.", "Boas vindas!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            Pergunta1 p1 = new Pergunta1(idJogador);
+                            p1.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Erro no procedimento da conexão.");
+                        }
+                    }
+                }
             }
         }
 

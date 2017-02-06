@@ -13,9 +13,11 @@ namespace Desktop
 {
     public partial class Pergunta1 : Form
     {
-        public Pergunta1()
+        public int idJogador;
+        public Pergunta1(int jogador)
         {
             InitializeComponent();
+            idJogador = jogador;
         }
 
         private void FormPergunta1_Load(object sender, EventArgs e)
@@ -29,21 +31,22 @@ namespace Desktop
 
         private void btnResposta1_Click(object sender, EventArgs e)
         {
-            bool valor;
-            if (rb3.Checked)
-                valor = true;
-            else
-                valor = false;
-
-            //using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\ALUNO01; Database=perguntas_respostas; Trusted_connection=Yes"))
-            //{
-            //    using (SqlCommand cmd = new SqlCommand("insert into "))
-            //}
-
-            Utilidades.ArmazenaResposta(0, valor);
-
-            Pergunta2 p2 = new Pergunta2();
-            p2.Show();
+            using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
+            {
+                using (SqlCommand cmd = new SqlCommand("insert into tb_Perguntas (pergunta, resposta_correta, id_jogador) values (@PERG, @RESP_CORR, @ID_JOgador)", conexao))
+                {
+                    if (rb3.Checked)
+                    {
+                        cmd.Parameters.AddWithValue("PERG", lblPergunta1.Text);
+                        cmd.Parameters.AddWithValue("RESP_CORR", rb3.Text);
+                        cmd.Parameters.AddWithValue("ID_JOGADOR", idJogador);
+                        conexao.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                    Pergunta2 p2 = new Pergunta2();
+                    p2.Show();
+                }
+            }
         }
     }
 }
