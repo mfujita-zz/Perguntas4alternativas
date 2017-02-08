@@ -13,10 +13,12 @@ namespace Desktop
 {
     public partial class Pergunta5 : Form
     {
-        public Pergunta5()
+        public int idJogador;
+        public Pergunta5(int jogador )
         {
             InitializeComponent();
-        }
+            idJogador = jogador;
+    }
 
         private void Pergunta5_Load(object sender, EventArgs e)
         {
@@ -30,15 +32,16 @@ namespace Desktop
 
         private void bntResposta5_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
+            //using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
+            using (SqlConnection conexao = new SqlConnection("Server=SAMSUNG-SERIE-9\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_Connection=Yes"))
             {
                 using (SqlCommand cmd = new SqlCommand("insert into tb_Perguntas (pergunta, resposta_correta, ID_JOGADOR) values (@perg,@resp, @ID_JOGADOR)", conexao))
                 {
-                    if (rb1.Checked)
+                    if (rb2.Checked)
                     {
                         cmd.Parameters.AddWithValue("perg", lblPergunta5.Text);
                         cmd.Parameters.AddWithValue("resp", rb2.Text);
-                        cmd.Parameters.AddWithValue("ID_JOGADOR", 2);
+                        cmd.Parameters.AddWithValue("ID_JOGADOR", idJogador);
                         conexao.Open();
                         cmd.ExecuteNonQuery();
                     }

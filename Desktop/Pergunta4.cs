@@ -13,9 +13,11 @@ namespace Desktop
 {
     public partial class Pergunta4 : Form
     {
-        public Pergunta4()
+        public int idJogador;
+        public Pergunta4(int jogador)
         {
             InitializeComponent();
+            idJogador = jogador;
         }
 
         private void Pergunta4_Load(object sender, EventArgs e)
@@ -30,7 +32,8 @@ namespace Desktop
 
         private void btn4_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
+            using (SqlConnection conexao = new SqlConnection("Server=SAMSUNG-SERIE-9\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_Connection=Yes"))
+            //using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
             {
                 using (SqlCommand cmd = new SqlCommand("insert into tb_Perguntas (pergunta, resposta_correta, ID_JOGADOR) values (@perg, @resp, @ID_JOGADOR)", conexao))
                 {
@@ -38,11 +41,11 @@ namespace Desktop
                     {
                         cmd.Parameters.AddWithValue("perg", lblPergunta4.Text);
                         cmd.Parameters.AddWithValue("resp", rb1.Text);
-                        cmd.Parameters.AddWithValue("ID_JOGADOR", 2);
+                        cmd.Parameters.AddWithValue("ID_JOGADOR", idJogador);
                         conexao.Open();
                         cmd.ExecuteNonQuery(); 
                     }
-                    Pergunta5 p5 = new Pergunta5();
+                    Pergunta5 p5 = new Pergunta5(idJogador);
                     p5.ShowDialog();
                 }
             }

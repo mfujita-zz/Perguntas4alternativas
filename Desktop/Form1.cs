@@ -27,20 +27,23 @@ namespace Desktop
             }
             else
             {
-                using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_Connection=Yes"))
+                using (SqlConnection conexao = new SqlConnection("Server=SAMSUNG-SERIE-9\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_Connection=Yes"))
+                //using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
                 {
                     using (SqlCommand comando = new SqlCommand("insert into tb_jogador(nome) OUTPUT INSERTED.id_jogador values (@NOME)", conexao))
-                    {                        
+                    {
                         comando.Parameters.AddWithValue("NOME", txtNome.Text);
                         conexao.Open();
-                        if (comando.ExecuteNonQuery() == 1)
+
+                        try
                         {
-                            int idJogador = (int)comando.ExecuteScalar();                            
-                            MessageBox.Show("Olá, " + txtNome.Text + ". Vamos começar.", "Boas vindas!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            //comando.ExecuteNonQuery();
+                            int idJogador = (int)comando.ExecuteScalar();
+                            MessageBox.Show(txtNome.Text + " recebeu id " + idJogador +  ".", "Boas vindas!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             Pergunta1 p1 = new Pergunta1(idJogador);
                             p1.ShowDialog();
                         }
-                        else
+                        catch
                         {
                             MessageBox.Show("Erro no procedimento da conexão.");
                         }
@@ -51,7 +54,7 @@ namespace Desktop
 
         private void txtNome_Enter(object sender, EventArgs e)
         {
-            txtNome.Text = "";            
+            txtNome.Text = "";
         }
 
         private void txtNome_Leave(object sender, EventArgs e)
