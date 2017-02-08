@@ -32,8 +32,8 @@ namespace Desktop
 
         private void btnResposta2_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conexao = new SqlConnection("Server=SAMSUNG-SERIE-9\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_Connection=Yes"))
-            //using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
+            //using (SqlConnection conexao = new SqlConnection("Server=SAMSUNG-SERIE-9\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_Connection=Yes"))
+            using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
             {
                 using (SqlCommand cmd = new SqlCommand("insert into tb_Perguntas (pergunta, resposta_correta, id_jogador) values (@PERG, @RESP,@ID_JOGADOR)", conexao))
                 {
@@ -45,8 +45,7 @@ namespace Desktop
                         conexao.Open();
                         cmd.ExecuteNonQuery();
                     }
-                    Pergunta3 p3 = new Pergunta3(idJogador);
-                    p3.Show();
+                    Close();
                 }
             }
         }

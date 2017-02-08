@@ -32,8 +32,8 @@ namespace Desktop
 
         private void bntResposta5_Click(object sender, EventArgs e)
         {
-            //using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
-            using (SqlConnection conexao = new SqlConnection("Server=SAMSUNG-SERIE-9\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_Connection=Yes"))
+            using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
+            //using (SqlConnection conexao = new SqlConnection("Server=SAMSUNG-SERIE-9\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_Connection=Yes"))
             {
                 using (SqlCommand cmd = new SqlCommand("insert into tb_Perguntas (pergunta, resposta_correta, ID_JOGADOR) values (@perg,@resp, @ID_JOGADOR)", conexao))
                 {
@@ -45,10 +45,16 @@ namespace Desktop
                         conexao.Open();
                         cmd.ExecuteNonQuery();
                     }
-                    MessageBox.Show("Você acertou  respostas!", "Resultados");
-                    Application.Exit();
+                }
+
+                using (SqlCommand cmd = new SqlCommand("select COUNT(@@ROWCOUNT) from tb_Perguntas where id_jogador=@id", conexao))
+                {
+                    cmd.Parameters.AddWithValue("id", idJogador);
+                    int respostasCorretas = (int)cmd.ExecuteScalar();
+                    MessageBox.Show("Você acertou " + respostasCorretas + " respostas!", "Resultados");
                 }
             }
+            Close();
         }
     }
 }
