@@ -21,7 +21,7 @@ create table tb_Perguntas (
   pergunta varchar(max),
   resposta_correta varchar(max),
   id_jogador int,
-  data datetime default getdate(),  
+  data datetime default getdate()
 )
 
 alter table tb_Perguntas add id_jogador int
