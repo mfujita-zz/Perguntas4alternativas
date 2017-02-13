@@ -27,26 +27,36 @@ namespace Desktop
             }
             else
             {
-                using (SqlConnection conexao = new SqlConnection("Server=SAMSUNG-SERIE-9\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_Connection=Yes"))
-                //using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
+                //using (SqlConnection conexao = new SqlConnection("Server=SAMSUNG-SERIE-9\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_Connection=Yes"))
+                using (SqlConnection conexao = new SqlConnection("Server=AME0556327W10-1\\SQLEXPRESS; Database=db_PerguntasRespostas; Trusted_connection=Yes"))
                 {
                     using (SqlCommand comando = new SqlCommand("insert into tb_jogador(nome) OUTPUT INSERTED.id_jogador values (@NOME)", conexao))
                     {
                         comando.Parameters.AddWithValue("NOME", txtNome.Text);
                         conexao.Open();
+                                                
+                        int idJogador = (int)comando.ExecuteScalar();
 
-                        try
-                        {
-                            //comando.ExecuteNonQuery();
-                            int idJogador = (int)comando.ExecuteScalar();
+                        if (idJogador > 0)
+                        { 
                             MessageBox.Show(txtNome.Text + " recebeu id " + idJogador +  ".", "Boas vindas!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             Pergunta1 p1 = new Pergunta1(idJogador);
                             p1.ShowDialog();
+                            Pergunta2 p2 = new Pergunta2(idJogador);
+                            p2.ShowDialog();
+                            Pergunta3 p3 = new Pergunta3(idJogador);
+                            p3.ShowDialog();
+                            Pergunta4 p4 = new Pergunta4(idJogador);
+                            p4.ShowDialog();
+                            Pergunta5 p5 = new Pergunta5(idJogador);
+                            p5.ShowDialog();
                         }
-                        catch
+                        else
                         {
-                            MessageBox.Show("Erro no procedimento da conexão.");
+                            MessageBox.Show("Erro no procedimento da conexão.", "Alerta!");
                         }
+
+                        //MessageBox.Show("Erro no procedimento da conexão.");
                     }
                 }
             }
